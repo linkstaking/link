@@ -85,7 +85,12 @@ function toast(type, message) {
 
 function extractErrorData(errorObj) {
   if (!errorObj) return "";
+  if (typeof errorObj === "string" && errorObj.startsWith("0x")) return errorObj;
   if (typeof errorObj.data === "string" && errorObj.data.startsWith("0x")) return errorObj.data;
+  if (errorObj.data && typeof errorObj.data === "object") {
+    const nestedData = extractErrorData(errorObj.data);
+    if (nestedData) return nestedData;
+  }
   if (errorObj.error) {
     const nested = extractErrorData(errorObj.error);
     if (nested) return nested;
@@ -94,6 +99,21 @@ function extractErrorData(errorObj) {
     return errorObj.receipt.revertString;
   }
   return "";
+}
+
+async function hasActiveStake(addressToCheck) {
+  const count = await staking.getStakesCount(addressToCheck);
+  const total = Number(count.toString());
+  if (total <= 0) return false;
+
+  const start = Math.max(0, total - 10);
+  for (let i = total - 1; i >= start; i--) {
+    const s = await staking.getStake(addressToCheck, i);
+    if (s.active && !s.withdrawn && s.amount.gt(0)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 function decodeCustomError(errorObj) {
@@ -161,6 +181,7 @@ async function connectWallet() {
   await refreshNetwork();
   await refreshMyData();
   log("钱包连接成功");
+  log(`当前合约: ${STAKING_ADDRESS}`);
 }
 
 async function refreshNetwork() {
@@ -281,6 +302,25 @@ async function depositWithReferrer() {
   const amount = parseAmount($("amount").value);
   const referrer = $("referrer").value.trim();
   if (!ethers.utils.isAddress(referrer)) throw new Error("推荐人地址无效");
+
+  const [allowance, balance, refValid] = await Promise.all([
+    token.allowance(userAddress, STAKING_ADDRESS),
+    token.balanceOf(userAddress),
+    hasActiveStake(referrer)
+  ]);
+
+  if (balance.lt(amount)) {
+    throw new Error("余额不足，请先确保钱包有足够 LINK");
+  }
+
+  if (allowance.lt(amount)) {
+    throw new Error("授权额度不足，请先点击授权");
+  }
+
+  if (!refValid) {
+    throw new Error("推荐人在当前合约下没有有效质押，无法绑定");
+  }
+
   const tx = await staking.depositWithReferrer(amount, referrer);
   log(`带推荐质押已发送: ${tx.hash}`);
   await tx.wait();
