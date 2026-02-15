@@ -1,5 +1,5 @@
 const BSC_TESTNET_CHAIN_ID = 97;
-const STAKING_ADDRESS = "0x4E416179c8cE226586Cfbe4c4d87bFCA2fB0ce9a";
+const STAKING_ADDRESS = "0x54123C646F7Eecc2035c14B5e095a4e148745AAf";
 
 const STAKING_ABI = [
   "function stakeToken() view returns (address)",
@@ -344,3 +344,4 @@ $("manualWithdrawBtn").onclick = () => run("手动提现", manualWithdraw);
 $("pressWithdrawBtn").onclick = () => run("压单提现", pressWithdraw);
 $("claimAgentBtn").onclick = () => run("领取代理奖励", claimAgent);
 $("queryStakeBtn").onclick = () => run("查询质押", queryStake);
+
