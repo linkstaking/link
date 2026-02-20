@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Link全链协议 - BSC Testnet</title>
+  <title>Link Alliance - BSC Mainnet</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -19,92 +19,92 @@
       <div class="brand">
         <img class="avatar" src="./avatar.svg" alt="Link avatar" />
         <div class="brand-text">
-          <div class="brand-title">Link全链协议</div>
-          <div class="brand-sub">Alliance of Links · BSC 测试网</div>
+          <div class="brand-title" id="brandTitle">Link Alliance</div>
+          <div class="brand-sub" id="brandSub">Alliance of Links · BSC Mainnet</div>
         </div>
       </div>
       <div class="topbar-actions">
-        <button id="connectBtn" class="btn primary">连接钱包</button>
-        <button id="switchChainBtn" class="btn ghost">切换到 BSC 主网</button>
+        <button id="connectBtn" class="btn primary">Connect Wallet</button>
+        <button id="switchChainBtn" class="btn ghost">Switch to BSC Mainnet</button>
+        <button id="langToggleBtn" class="btn ghost">中文</button>
       </div>
     </header>
 
     <section class="hero card">
       <div class="hero-header">
         <div class="hero-title">
-          <h1>链上质押中心</h1>
-          <p class="sub">高效质押 · 代理激励 · 全链协同</p>
+          <h1 id="heroTitle">On-Chain Staking Hub</h1>
+          <p class="sub" id="heroSub">Efficient staking · Agent rewards · Cross-chain synergy</p>
         </div>
-        <div class="hero-pill">运营中心公告 · 规则更新</div>
+        <div class="hero-pill" id="heroPill">Operations Bulletin · Rules Update</div>
       </div>
     </section>
 
     <section class="card wallet-card">
       <div class="kv-grid">
-        <p>钱包 <span id="wallet">未连接</span></p>
-        <p>网络 <span id="network">未知</span></p>
-        <p>LINK 余额 <span id="linkBalance">-</span></p>
-        <p>授权额度 <span id="allowance">-</span></p>
+        <p><span id="walletLabel">Wallet</span> <span id="wallet">Not connected</span></p>
+        <p><span id="networkLabel">Network</span> <span id="network">Unknown</span></p>
+        <p><span id="linkBalanceLabel">LINK Balance</span> <span id="linkBalance">-</span></p>
+        <p><span id="allowanceLabel">Allowance</span> <span id="allowance">-</span></p>
       </div>
     </section>
 
     <div class="grid-two">
       <section class="card">
-        <h2>质押</h2>
-        <label>质押数量（LINK）</label>
-        <input id="amount" type="number" min="0" step="1" placeholder="例如 1" />
+        <h2 id="stakingTitle">Staking</h2>
+        <label id="stakeAmountLabel">Stake Amount (LINK)</label>
+        <input id="amount" type="number" min="0" step="1" placeholder="e.g. 1" data-i18n-placeholder="amountPlaceholder" />
         <div class="row actions-row">
-          <button id="previewBtn" class="btn ghost">预览净额与收益</button>
-          <button id="approveBtn" class="btn">授权</button>
-          <button id="depositBtn" class="btn primary">直接质押</button>
+          <button id="previewBtn" class="btn ghost">Preview Net &amp; Yield</button>
+          <button id="approveBtn" class="btn">Approve</button>
+          <button id="depositBtn" class="btn primary">Deposit</button>
         </div>
-        <label>推荐人地址（首次绑定用）</label>
-        <input id="referrer" type="text" placeholder="0x..." />
-        <button id="depositWithRefBtn" class="btn">带推荐人质押</button>
+        <label id="referrerLabel">Referrer Address (first-time binding)</label>
+        <input id="referrer" type="text" placeholder="0x..." data-i18n-placeholder="addressPlaceholder" />
+        <button id="depositWithRefBtn" class="btn">Deposit with Referrer</button>
 
         <div class="preview">
-          <p>有效 <span id="pvValid">-</span></p>
-          <p>计息基数(99%) <span id="pvBase">-</span></p>
-          <p>周期(秒) <span id="pvDuration">-</span></p>
-          <p>总利率(BP) <span id="pvRate">-</span></p>
-          <p>预计利息 <span id="pvInterest">-</span></p>
-          <p>预计返还 <span id="pvPayout">-</span></p>
+          <p><span id="pvValidLabel">Valid</span> <span id="pvValid">-</span></p>
+          <p><span id="pvBaseLabel">Interest Base (99%)</span> <span id="pvBase">-</span></p>
+          <p><span id="pvDurationLabel">Duration (sec)</span> <span id="pvDuration">-</span></p>
+          <p><span id="pvRateLabel">Rate (BP)</span> <span id="pvRate">-</span></p>
+          <p><span id="pvInterestLabel">Est. Interest</span> <span id="pvInterest">-</span></p>
+          <p><span id="pvPayoutLabel">Est. Payout</span> <span id="pvPayout">-</span></p>
         </div>
       </section>
 
       <section class="card">
-        <h2>提现与代理</h2>
-        <label>手动提现 stakeId</label>
-        <input id="withdrawStakeId" type="number" min="0" step="1" placeholder="例如 0" />
+        <h2 id="withdrawTitle">Withdraw &amp; Agent</h2>
+        <label id="manualWithdrawLabel">Manual Withdraw stakeId</label>
+        <input id="withdrawStakeId" type="number" min="0" step="1" placeholder="e.g. 0" data-i18n-placeholder="stakeIdPlaceholder" />
         <button id="manualWithdrawBtn" class="btn">manualWithdrawMatured</button>
 
-        <label>压单提现 oldStakeId</label>
-        <input id="pressOldId" type="number" min="0" step="1" placeholder="例如 0" />
-        <label>新质押数量（LINK）</label>
-        <input id="pressNewAmount" type="number" min="0" step="1" placeholder="例如 1" />
+        <label id="pressOldLabel">Press-stake Withdraw oldStakeId</label>
+        <input id="pressOldId" type="number" min="0" step="1" placeholder="e.g. 0" data-i18n-placeholder="stakeIdPlaceholder" />
+        <label id="pressNewAmountLabel">New Stake Amount (LINK)</label>
+        <input id="pressNewAmount" type="number" min="0" step="1" placeholder="e.g. 1" data-i18n-placeholder="amountPlaceholder" />
         <button id="pressWithdrawBtn" class="btn">withdrawWithPressStake</button>
 
-        <button id="claimAgentBtn" class="btn ghost">领取代理奖励</button>
+        <button id="claimAgentBtn" class="btn ghost">Claim Agent Rewards</button>
       </section>
     </div>
 
     <section class="card">
-      <h2>查询</h2>
+      <h2 id="queryTitle">Query</h2>
       <div class="row actions-row">
-        <button id="refreshMyBtn" class="btn ghost">刷新我的数据</button>
+        <button id="refreshMyBtn" class="btn ghost">Refresh My Data</button>
       </div>
       <div class="kv-grid">
-        <p>我的总 Stake 数 <span id="myStakeCount">-</span></p>
-        <p>合约池余额 (LINK) <span id="poolBalance">-</span></p>
+        <p><span id="totalStakesLabel">Total Stakes</span> <span id="myStakeCount">-</span></p>
       </div>
-      <label>查询 stakeId</label>
-      <input id="queryStakeId" type="number" min="0" step="1" placeholder="例如 0" />
-      <button id="queryStakeBtn" class="btn">查询单笔Stake</button>
+      <label id="queryStakeLabel">Query stakeId</label>
+      <input id="queryStakeId" type="number" min="0" step="1" placeholder="e.g. 0" data-i18n-placeholder="stakeIdPlaceholder" />
+      <button id="queryStakeBtn" class="btn">Query Stake</button>
       <pre id="stakeDetail">-</pre>
     </section>
 
     <section class="card">
-      <h2>日志</h2>
+      <h2 id="logTitle">Log</h2>
       <pre id="log"></pre>
     </section>
   </main>
