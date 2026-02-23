@@ -1,5 +1,5 @@
 const BSC_MAINNET_CHAIN_ID = 56;
-const STAKING_ADDRESS = "0x055B7298b52B2cEb60512beA909b8dc665BE5729";
+const STAKING_ADDRESS = "0xbd641e926219e5757f03bdfdc3e2820b5b64f230";
 const EXPECTED_TOKEN_ADDRESS = "0xCA18ff41e63539E67AcE684e90e36d04Dcf74E72";
 
 const I18N = {
@@ -1051,4 +1051,5 @@ $ ("langToggleBtn").onclick = () => toggleLanguage();
 applyLanguage();
 setConnectedUI(false);
 resetUI();
+
 
